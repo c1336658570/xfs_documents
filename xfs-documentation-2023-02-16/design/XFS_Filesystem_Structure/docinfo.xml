@@ -1,0 +1,201 @@
+<subtitle>3rd Edition</subtitle>
+<!--
+<abstract>
+	<para>This book documents the on-disk structure of the XFS filesystem.</para>
+</abstract>
+-->
+<corpauthor>
+</corpauthor>
+<copyright>
+	<year>2006</year>
+	<holder>Silicon Graphics Inc.</holder>
+</copyright>
+<legalnotice>
+	<para>© Copyright 2006 Silicon Graphics Inc. All rights reserved.  Permission is granted to copy, distribute, and/or modify this document under the terms of the Creative Commons Attribution-Share Alike, Version 3.0 or any later version published by the Creative Commons Corp. A copy of the license is available at <ulink url="http://creativecommons.org/licenses/by-sa/3.0/us/"/>.</para>
+</legalnotice>
+
+<revhistory>
+	<revision>
+		<revnumber>0.1</revnumber>
+		<date>2006</date>
+		<author>
+			<firstname>Silicon Graphics, Inc</firstname>
+			<surname></surname>
+			<email></email>
+		</author>
+		<revdescription>
+			<simplelist>
+				<member>Initial Release</member>
+			</simplelist>
+		</revdescription>
+	</revision>
+	<revision>
+		<revnumber>1.0</revnumber>
+		<date>Fri Jul 03 2009</date>
+		<author>
+			<firstname>Ryan</firstname>
+			<surname>Lerch</surname>
+			<email></email>
+		</author>
+		<revdescription>
+			<simplelist>
+				<member>Publican Conversion</member>
+			</simplelist>
+		</revdescription>
+	</revision>
+	<revision>
+		<revnumber>1.1</revnumber>
+		<date>March 2010</date>
+		<author>
+			<firstname>Eric</firstname>
+			<surname>Sandeen</surname>
+			<email></email>
+		</author>
+		<revdescription>
+			<simplelist>
+				<member>Community Release</member>
+			</simplelist>
+		</revdescription>
+	</revision>
+	<revision>
+		<revnumber>1.99</revnumber>
+		<date>February 2014</date>
+		<author>
+			<firstname>Dave</firstname>
+			<surname>Chinner</surname>
+			<email></email>
+		</author>
+		<revdescription>
+			<simplelist>
+				<member>AsciiDoc Conversion</member>
+			</simplelist>
+		</revdescription>
+	</revision>
+	<revision>
+		<revnumber>3</revnumber>
+		<date>October 2015</date>
+		<author>
+			<firstname>Darrick</firstname>
+			<surname>Wong</surname>
+			<email></email>
+		</author>
+		<revdescription>
+			<simplelist>
+				<member>Miscellaneous fixes.</member>
+				<member>Add missing field definitions.</member>
+				<member>Add some missing xfs_db examples.</member>
+				<member>Add an overview of XFS.</member>
+				<member>Document the journal format.</member>
+				<member>Document the realtime device.</member>
+			</simplelist>
+		</revdescription>
+	</revision>
+	<revision>
+		<revnumber>3.1</revnumber>
+		<date>October 2015</date>
+		<author>
+			<firstname>Darrick</firstname>
+			<surname>Wong</surname>
+			<email></email>
+		</author>
+		<revdescription>
+			<simplelist>
+				<member>Add v5 fields.</member>
+				<member>Discuss metadata integrity.</member>
+				<member>Document the free inode B+tree.</member>
+				<member>Create an index of magic numbers.</member>
+				<member>Document sparse inodes.</member>
+			</simplelist>
+		</revdescription>
+	</revision>
+	<revision>
+		<revnumber>3.14</revnumber>
+		<date>January 2016</date>
+		<author>
+			<firstname>Darrick</firstname>
+			<surname>Wong</surname>
+			<email></email>
+		</author>
+		<revdescription>
+			<simplelist>
+				<member>Document disk format change testing.</member>
+			</simplelist>
+		</revdescription>
+	</revision>
+	<revision>
+		<revnumber>3.141</revnumber>
+		<date>June 2016</date>
+		<author>
+			<firstname>Darrick</firstname>
+			<surname>Wong</surname>
+			<email></email>
+		</author>
+		<revdescription>
+			<simplelist>
+				<member>Document the reverse-mapping btree.</member>
+				<member>Move the b+tree info to a separate chapter.</member>
+				<member>Discuss overlapping interval b+trees.</member>
+				<member>Discuss new log items for atomic updates.</member>
+				<member>Document the reference-count btree.</member>
+				<member>Discuss block sharing, reflink, &amp; deduplication.</member>
+			</simplelist>
+		</revdescription>
+	</revision>
+	<revision>
+		<revnumber>3.1415</revnumber>
+		<date>July 2016</date>
+		<author>
+			<firstname>Darrick</firstname>
+			<surname>Wong</surname>
+			<email></email>
+		</author>
+		<revdescription>
+			<simplelist>
+				<member>Document the real-time reverse-mapping btree.</member>
+			</simplelist>
+		</revdescription>
+	</revision>
+	<revision>
+		<revnumber>3.14159</revnumber>
+		<date>June 2017</date>
+		<author>
+			<firstname>Darrick</firstname>
+			<surname>Wong</surname>
+			<email>darrick.wong@oracle.com</email>
+		</author>
+		<revdescription>
+			<simplelist>
+				<member>Add the metadump file format.</member>
+			</simplelist>
+		</revdescription>
+	</revision>
+	<revision>
+		<revnumber>3.141592</revnumber>
+		<date>May 2018</date>
+		<author>
+			<firstname>Darrick</firstname>
+			<surname>Wong</surname>
+			<email>darrick.wong@oracle.com</email>
+		</author>
+		<revdescription>
+			<simplelist>
+				<member>Incorporate Dave Chinner's log design document.</member>
+				<member>Incorporate Dave Chinner's self-describing metadata design document.</member>
+			</simplelist>
+		</revdescription>
+	</revision>
+	<revision>
+		<revnumber>3.1415926</revnumber>
+		<date>April 2021</date>
+		<author>
+			<firstname>Darrick</firstname>
+			<surname>Wong</surname>
+			<email>djwong@kernel.org</email>
+		</author>
+		<revdescription>
+			<simplelist>
+				<member>Document the needsrepair, bigtime, and inobtcount features.</member>
+			</simplelist>
+		</revdescription>
+	</revision>
+</revhistory>

@@ -1,0 +1,113 @@
+// This is based on a multi-book template where each chapter uses level 1
+// headings. See doc/multi-book.txt as the example from asciidoc documentation.
+//
+// We pull in the document info in xml format from docinfo.xml. We do this
+// because asciidoc is unable to handle multiple entry revision histories,
+// and we really need an area to set up various docbook sections like copyright
+// and legal notice sections.
+//
+XFS Algorithms & Data Structures
+================================
+:doctype: book
+:docinfo1:
+
+High Level Design
+=================
+
+[partintro]
+--
+XFS is a high performance filesystem which was designed to maximize parallel
+throughput and to scale up to extremely large 64-bit storage systems.
+Originally developed by SGI in October 1993 for IRIX, XFS can handle large
+files, large filesystems, many inodes, large directories, large file
+attributes, and large allocations.  Filesystems are optimized for parallel
+access by splitting the storage device into semi-autonomous allocation groups.
+XFS employs branching trees (B+ trees) to facilitate fast searches of large
+lists; it also uses delayed extent-based allocation to improve data contiguity
+and IO performance.
+
+This document describes the on-disk layout of an XFS filesystem and how to use
+the debugging tools +xfs_db+ and +xfs_logprint+ to inspect the metadata
+structures.  It also describes how on-disk metadata relates to the higher level
+design goals.
+
+The information contained in this document derives from the XFS source code in
+the Linux kernel as of v4.3.  This book's source code is available at
++git://git.kernel.org/pub/scm/fs/xfs/xfs-documentation.git+.  Feedback should
+be sent to the XFS mailing list, currently at +linux-xfs@vger.kernel.org+.
+
+[NOTE]
+All fields in XFS metadata structures are in big-endian byte order except for
+log items which are formatted in host order.
+--
+
+// Push titles down one level
+:leveloffset: 1
+
+include::overview.asciidoc[]
+
+include::self_describing_metadata.asciidoc[]
+
+include::delayed_logging.asciidoc[]
+
+include::reflink.asciidoc[]
+
+include::reconstruction.asciidoc[]
+
+include::common_types.asciidoc[]
+
+include::magic.asciidoc[]
+
+include::testing.asciidoc[]
+
+// return titles to normal
+:leveloffset: 0
+
+Global Structures
+=================
+
+:leveloffset: 1
+
+include::btrees.asciidoc[]
+
+include::dabtrees.asciidoc[]
+
+include::timestamps.asciidoc[]
+
+include::allocation_groups.asciidoc[]
+
+include::rmapbt.asciidoc[]
+
+include::refcountbt.asciidoc[]
+
+include::journaling_log.asciidoc[]
+
+include::internal_inodes.asciidoc[]
+
+:leveloffset: 0
+
+Dynamically Allocated Structures
+================================
+
+:leveloffset: 1
+
+include::ondisk_inode.asciidoc[]
+
+include::data_extents.asciidoc[]
+
+include::directories.asciidoc[]
+
+include::extended_attributes.asciidoc[]
+
+include::symbolic_links.asciidoc[]
+
+:leveloffset: 0
+
+Auxiliary Data Structures
+=========================
+
+:leveloffset: 1
+
+include::metadump.asciidoc[]
+
+:leveloffset: 0

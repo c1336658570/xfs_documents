@@ -1,0 +1,65 @@
+[[Timestamps]]
+= Timestamps
+
+XFS needs to be able to persist the concept of a point in time.  This chapter
+discusses how timestamps are represented on disk.
+
+[[Inode_Timestamps]]
+== Inode Timestamps
+
+The filesystem preserves up to four different timestamps for each file stored
+in the filesystem.  These quantities are: the time when the file was created
+(+di_crtime+), the last time the file metadata were changed (+di_ctime+), the
+last time the file contents were changed (+di_mtime+), and the last time the
+file contents were accessed (+di_atime+).  The filesystem epoch is aligned with
+the Unix epoch, which is to say that a value of all zeroes represents 00:00:00
+UTC on January 1st, 1970.
+
+Prior to the introduction of the bigtime feature, inode timestamps were
+laid out as as segmented counter of seconds and nanoseconds:
+
+[source, c]
+----
+struct xfs_legacy_timestamp {
+     __int32_t                 t_sec;
+     __int32_t                 t_nsec;
+};
+----
+
+The smallest date this format can represent is 20:45:52 UTC on December 13st,
+1901, and the largest date supported is 03:14:07 UTC on January 19, 2038.
+
+With the introduction of the bigtime feature, the format is changed to
+interpret the timestamp as a 64-bit count of nanoseconds since the smallest
+date supported by the old encoding.  This means that the smallest date
+supported is still 20:45:52 UTC on December 13st, 1901; but now the largest
+date supported is 20:20:24 UTC on July 2nd, 2486.
+
+[[Quota_Timers]]
+== Quota Grace Period Expiration Timers
+
+XFS' quota control allows administrators to set a soft limit on each type of
+resource that a regular user can consume: inodes, blocks, and realtime blocks.
+The administrator can establish a grace period after which the soft limit
+becomes a hard limit for the user.  Therefore, XFS needs to be able to store
+the exact time when a grace period expires.
+
+Prior to the introduction of the bigtime feature, quota grace period
+expirations were unsigned 32-bit seconds counters, with the magic value zero
+meaning that the soft limit has not been exceeded.  Therefore, the smallest
+expiration date that can be expressed is 00:00:01 UTC on January 1st, 1970; and
+the largest is 06:28:15 on February 7th, 2106.
+
+With the introduction of the bigtime feature, the ondisk field now encodes the
+upper 32 bits of an unsigned 34-bit seconds counter.  Zero is still a magic
+value that means the soft limit has not been exceeded.  The smallest quota
+expiration date is now 00:00:04 UTC on January 1st, 1970; and the largest is
+20:20:24 UTC on July 2nd, 2486.  The format can encode slightly larger
+expiration dates, but it was decided to end support for both timers at exactly
+the same point.
+
+The default grace periods are stored in the timer fields of the quota record
+for id zero.  Since this quantity is an interval, these fields are always
+interpreted as an unsigned 32 bit quantity.  Therefore, the longest possible
+grace period is approximately 136 years, 29 weeks, 3 days, 6 hours, 28 minutes
+and 15 seconds.
